@@ -48,14 +48,14 @@ if __name__ == "__main__":
     os.makedirs("results/starcoder", exist_ok=True)
 
     tokenizer = AutoTokenizer.from_pretrained(
-        "bigcode/starcoder",
+        "bigcode/starcoder2-3b",
         trust_remote_code=True,
         use_auth_token=TOKEN,
     )
 
     model = torch.compile(
         GPTBigCodeForCausalLM.from_pretrained(
-            "bigcode/starcoder",
+            "bigcode/starcoder2-3b",
             device_map="auto",
             torch_dtype=torch.bfloat16,
             trust_remote_code=True,
