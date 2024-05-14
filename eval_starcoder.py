@@ -45,7 +45,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 if __name__ == "__main__":
     # adjust for n = 10 etc
-    num_samples_per_task = 10
+    num_samples_per_task = 1
     out_path = "results/starcoder/eval.jsonl"
     os.makedirs("results/starcoder", exist_ok=True)
 
