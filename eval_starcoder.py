@@ -40,6 +40,8 @@ def generate_batch_completion(
     # fix_indents is required to fix the tab character that is generated from starcoder model
     return [filter_code(fix_indents(completion)) for completion in batch_completions]
 
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
 
 if __name__ == "__main__":
     # adjust for n = 10 etc
@@ -47,25 +49,13 @@ if __name__ == "__main__":
     out_path = "results/starcoder/eval.jsonl"
     os.makedirs("results/starcoder", exist_ok=True)
 
-    tokenizer = AutoTokenizer.from_pretrained(
-        "bigcode/starcoder2-3b",
-        trust_remote_code=True,
-        use_auth_token=TOKEN,
-    )
 
-    model = torch.compile(
-        GPTBigCodeForCausalLM.from_pretrained(
-            "bigcode/starcoder2-3b",
-            device_map="auto",
-            torch_dtype=torch.bfloat16,
-            trust_remote_code=True,
-            max_memory={
-                0: "18GiB",
-                1: "18GiB",
-            },
-            use_auth_token=TOKEN,
-        ).eval()
-    )
+    checkpoint = "bigcode/starcoder2-3b"
+    device = "cuda" # for GPU usage or "cpu" for CPU usage
+    
+    tokenizer = AutoTokenizer.from_pretrained(checkpoint)
+    # for multiple GPUs install accelerate and do `model = AutoModelForCausalLM.from_pretrained(checkpoint, device_map="auto")`
+    model = AutoModelForCausalLM.from_pretrained(checkpoint).to(device)
 
     run_eval(
         model,
