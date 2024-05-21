@@ -58,7 +58,7 @@ if __name__ == "__main__":
     # model = AutoModelForCausalLM.from_pretrained(checkpoint, cache_dir = "/content").to(device)
     
     # Multiple GPUs
-    model = AutoModelForCausalLM.from_pretrained(checkpoint, cache_dir = "/content", device_map="auto")
+    model = AutoModelForCausalLM.from_pretrained(checkpoint, cache_dir = "/content", trust_remote_code=True, device_map="auto")
 
     run_eval(
         model,
