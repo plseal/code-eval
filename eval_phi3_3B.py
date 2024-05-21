@@ -57,8 +57,8 @@ if __name__ == "__main__":
     # for multiple GPUs install accelerate and do `model = AutoModelForCausalLM.from_pretrained(checkpoint, device_map="auto")`
     # model = AutoModelForCausalLM.from_pretrained(checkpoint, cache_dir = "/content").to(device)
     
-    # Multiple GPUs
-    model = AutoModelForCausalLM.from_pretrained(checkpoint, cache_dir = "/content", trust_remote_code=True, device_map="auto")
+    # One GPU
+    model = AutoModelForCausalLM.from_pretrained(checkpoint, cache_dir = "/content", trust_remote_code=True).to(device)
 
     run_eval(
         model,
