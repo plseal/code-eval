@@ -27,7 +27,7 @@ def generate_batch_completion(
         max_new_tokens=512,
         temperature=0.0,
         top_p=0.95,
-        do_sample=True,
+        do_sample=False,
         eos_token_id=tokenizer.eos_token_id,
         pad_token_id=tokenizer.eos_token_id,  # model has no pad token
     )
