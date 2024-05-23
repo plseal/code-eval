@@ -13,7 +13,7 @@ parser.add_argument("--add_prompt", action="store_true", help="")
 args = parser.parse_args()
 
 
-files = sorted(glob.glob(args.path + "/*.jsonl"))
+files = sorted(glob.glob(args.path + "/eval*.jsonl"))
 print("{} files in {}".format(len(files), args.path))
 
 problems = read_problems()
