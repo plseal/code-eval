@@ -31,7 +31,9 @@ use_varlen_attn = False
 
 # Data
 # data_path = 'burkelibbey/colors'
-data_path = '/kaggle/working/colors/train.jsonl'
+# data_path = '/kaggle/working/colors/train.jsonl'
+data_path = '/kaggle/working/colors/colors.jsonl'
+
 # prompt_template = PROMPT_TEMPLATE.default
 prompt_template = PROMPT_TEMPLATE.internlm2_chat
 max_length = 2048
