@@ -3,7 +3,7 @@ from transformers import (
     PreTrainedTokenizer,
     PreTrainedModel,
 )
-from core import run_eval, filter_code, fix_indents
+from core import run_eval_one, filter_code, fix_indents
 import os
 import torch
 
@@ -60,7 +60,7 @@ if __name__ == "__main__":
     # multiple GPUs 
     model = AutoModelForCausalLM.from_pretrained(checkpoint, cache_dir = "/content", trust_remote_code=True, device_map="auto")
 
-    run_eval(
+    run_eval_one(
         model,
         tokenizer,
         num_samples_per_task,
