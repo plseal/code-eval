@@ -66,3 +66,39 @@ def run_eval(
         pbar.update(num_samples_per_task)
 
     write_jsonl(out_path, samples)
+
+def run_eval_one(
+    model: PreTrainedModel,
+    tokenizer: PreTrainedTokenizer,
+    num_samples_per_task: int,
+    out_path: str,
+    generate_batch_completion: BatchGenerator,
+    format_tabs: bool = False,
+):
+    problems = read_problems()
+    # problems = dict(itertools.islice(problems.items(), 20))
+    samples = []
+    pbar = tqdm(total=len(problems) * num_samples_per_task)
+
+    for task_id in problems:
+        if task_id == "HumanEval/23":
+            if format_tabs:
+                prompt = problems[task_id]["prompt"].replace("    ", "\t")
+            else:
+                prompt = problems[task_id]["prompt"]
+    
+            batch_completions = generate_batch_completion(
+                model, tokenizer, prompt, num_samples_per_task
+            )
+    
+            for sample in batch_completions:
+                result = dict(
+                    task_id=task_id,
+                    completion=sample,
+                )
+    
+                samples += [result]
+    
+            pbar.update(num_samples_per_task)
+
+    write_jsonl(out_path, samples)
