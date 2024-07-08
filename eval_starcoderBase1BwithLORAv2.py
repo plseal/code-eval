@@ -90,7 +90,8 @@ if __name__ == "__main__":
         checkpoint,
         load_in_8bit=load_in_8bit,
         quantization_config=bnb_config,
-        device_map=device_map,
+        # device_map=device_map,
+        device_map="auto",
         use_cache=False,  # We will be using gradient checkpointing
         trust_remote_code=True,
         # use_flash_attention_2=True,
