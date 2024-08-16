@@ -99,9 +99,9 @@ if __name__ == "__main__":
     tokenizer = AutoTokenizer.from_pretrained(checkpoint)
     # for multiple GPUs install accelerate and do `model = AutoModelForCausalLM.from_pretrained(checkpoint, device_map="auto")`
     
-    OUTPUT_DIR = "peft-starcoder-lora-a100-v2"  # output_dir
+    OUTPUT_DIR = "/content/LLM-Workshop2/personal_copilot/training/peft-lora-starcoder15B-v2-personal-copilot-H100-240GB-colab/checkpoint-200"  # output_dir
     # LORA ID
-    peft_model_id = f"msplits/{OUTPUT_DIR}"
+    peft_model_id = f"{OUTPUT_DIR}"
     
     base_model_4bit_with_lora_3 = PeftModel.from_pretrained(base_model_4bit, peft_model_id)
     base_model_4bit_with_lora_3.merge_and_unload()
